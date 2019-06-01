@@ -1,22 +1,20 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import PropTypes from 'prop-types';
+import UsersList from '../components/UsersList';
 
-const App = ({ classes }) => (
+import { Content, Container } from './App.styled';
+
+const App = () => (
   <>
-    <main className={classes.content}>
-      <Container maxWidth="md" className={classes.container}>
-        <Typography variant="subtitle1" className={classes.title} paragraph>
+    <Content>
+      <Container maxWidth="md">
+        <Typography variant="subtitle1" paragraph>
           Users List
         </Typography>
+        <UsersList />
       </Container>
-    </main>
+    </Content>
   </>
 );
-
-App.propTypes = {
-  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-};
 
 export default App;
