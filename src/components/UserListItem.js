@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -7,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
-const UsersListItem = () => (
+const UsersListItem = ({ id }) => (
   <ExpansionPanel>
     <ExpansionPanelSummary
       expandIcon={<ExpandMoreIcon />}
@@ -16,7 +17,7 @@ const UsersListItem = () => (
     >
       <Grid container justify="space-between">
         <Grid item>
-          <Typography>USER ID</Typography>
+          <Typography>{id}</Typography>
         </Grid>
         <Grid item>
           <Typography>ETH BALANCE</Typography>
@@ -28,5 +29,9 @@ const UsersListItem = () => (
     </ExpansionPanelDetails>
   </ExpansionPanel>
 );
+
+UsersListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default UsersListItem;

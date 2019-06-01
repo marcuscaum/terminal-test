@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import UsersList from '../components/UsersList';
+import UsersList from '../components/UserList';
 
 import { Content, Container } from './App.styled';
 
@@ -9,7 +9,7 @@ const App = () => (
     <Content>
       <Container maxWidth="md">
         <Typography variant="subtitle1" paragraph>
-          Users List
+          User List
         </Typography>
         <UsersList />
       </Container>
