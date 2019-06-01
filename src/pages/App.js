@@ -8,7 +8,7 @@ const App = () => (
   <>
     <Content>
       <Container maxWidth="md">
-        <Typography variant="subtitle1" paragraph>
+        <Typography variant="overline" paragraph>
           User List
         </Typography>
         <UsersList />
