@@ -4,6 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import UsersListItem from './UserListItem';
 import { GET_USERS } from '../graphql/queries';
+import { handleEthBalance } from '../utils';
 
 
 const UsersList = () => (
@@ -12,9 +13,12 @@ const UsersList = () => (
       if (loading) return <CircularProgress />;
       if (error) return `Error! ${error.message}`;
 
-      return data.users.map(user => (
-        <UsersListItem key={user.id} id={user.id} />
-      ));
+      return data.users.map((user) => {
+        const ethBalance = handleEthBalance(user.exchangeBalances);
+        return (
+          <UsersListItem key={user.id} id={user.id} ethBalance={ethBalance} />
+        );
+      });
     }}
   </Query>
 );

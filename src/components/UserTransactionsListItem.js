@@ -20,11 +20,11 @@ const UserTransactionsListItem = ({ transaction }) => (
         secondary={`TX: ${transaction.tx}`}
       />
       <ListItemText
-        right
+        right="true"
         primary={(
           <>
-            <strong>ETH: </strong>
             {transaction.ethAmount}
+            <strong> ETH</strong>
           </>
         )}
       />
