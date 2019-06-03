@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const GET_USERS = gql`
   {
-    users {
+    users(last: 30) {
       id
       exchangeBalances {
         ethDeposited
