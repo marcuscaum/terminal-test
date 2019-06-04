@@ -14,59 +14,56 @@ const App = () => {
   const [toId, setToId] = useState('');
 
   return (
-    <>
-      <Content>
-        <Container maxWidth="md">
-          <Grid container justify="space-between">
-            <Grid item>
-              <Typography variant="overline" paragraph>
+    <Content>
+      <Container maxWidth="md">
+        <Grid container justify="space-between">
+          <Grid item>
+            <Typography variant="overline" paragraph>
                 User List
-              </Typography>
-            </Grid>
-            <Grid item>
-              <TransferEth
+            </Typography>
+          </Grid>
+          <Grid item>
+            <TransferEth
+              onTransferEth={onTransferEth}
+              setOnTransferEth={setOnTransferEth}
+              fromId={fromId}
+              toId={toId}
+            />
+          </Grid>
+        </Grid>
+        <Query query={GET_USERS}>
+          {({
+            data: { users }, loading, error, fetchMore,
+          }) => {
+            if (loading) return <CircularProgress />;
+            if (error) return `Error! ${error.message}`;
+
+            return (
+              <UsersList
+                users={users}
                 onTransferEth={onTransferEth}
-                setOnTransferEth={setOnTransferEth}
+                setToId={setToId}
+                setFromId={setFromId}
                 fromId={fromId}
                 toId={toId}
+                onLoadMore={() => fetchMore({
+                  query: GET_USERS_AFTER,
+                  variables: { skip: users.length },
+                  updateQuery: (previousResult, { fetchMoreResult }) => {
+                    const previousUsers = previousResult.users;
+                    const newUsers = fetchMoreResult.users;
+
+                    return {
+                      users: [...previousUsers, ...newUsers],
+                    };
+                  },
+                })}
               />
-            </Grid>
-          </Grid>
-          <Query query={GET_USERS}>
-            {({
-              data: { users }, loading, error, fetchMore,
-            }) => {
-              if (loading) return <CircularProgress />;
-              if (error) return `Error! ${error.message}`;
-
-              return (
-                <UsersList
-                  users={users}
-                  onTransferEth={onTransferEth}
-                  setToId={setToId}
-                  setFromId={setFromId}
-                  fromId={fromId}
-                  toId={toId}
-                  onLoadMore={() => fetchMore({
-                    query: GET_USERS_AFTER,
-                    variables: { skip: users.length },
-                    updateQuery: (previousResult, { fetchMoreResult }) => {
-                      const previousUsers = previousResult.users;
-                      const newUsers = fetchMoreResult.users;
-
-                      return {
-                        users: [...previousUsers, ...newUsers],
-                      };
-                    },
-                  })
-                  }
-                />
-              );
-            }}
-          </Query>
-        </Container>
-      </Content>
-    </>
+            );
+          }}
+        </Query>
+      </Container>
+    </Content>
   );
 };
 

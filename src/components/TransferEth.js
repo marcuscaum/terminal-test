@@ -9,7 +9,10 @@ import {
 
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
 
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import Drawer from './styles/TransferEth.styled';
+import { TRANSFER_ETH_BALANCE } from '../graphql/mutations';
 
 export const TRANSFER_ETH_PROPTYPES = {
   onTransferEth: PropTypes.bool.isRequired,
@@ -49,14 +52,26 @@ const TransferEth = ({
       </Typography>
       <Grid container spacing={2}>
         <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={!fromId || !toId}
+          <Mutation
+            mutation={TRANSFER_ETH_BALANCE}
           >
-            Transfer
-            <SwapHoriz />
-          </Button>
+            {transferEthBalance => (
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={!fromId || !toId}
+                onClick={() => transferEthBalance({
+                  variables: {
+                    toId,
+                    fromId,
+                  },
+                })}
+              >
+                  Transfer
+                <SwapHoriz />
+              </Button>
+            )}
+          </Mutation>
         </Grid>
         <Grid item>
           <Button
