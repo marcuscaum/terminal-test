@@ -1,20 +1,28 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
+import { Waypoint } from 'react-waypoint';
 import UsersListItem from './UserListItem';
-import { handleEthBalance } from '../utils';
 
 
-const UsersList = ({ users }) => users.map((user) => {
-  const ethBalance = handleEthBalance(user.exchangeBalances);
-  return (
-    <>
-      <UsersListItem
-        key={user.id}
-        id={user.id}
-        ethBalance={ethBalance}
-      />
-    </>
-  );
-});
+const UsersList = ({ users, onLoadMore }) => (
+  <>
+    {
+      users.map(user => (
+        <UsersListItem
+          key={user.id}
+          user={user}
+        />
+      ))
+    }
+    <Waypoint onEnter={onLoadMore} />
+  </>
+);
+
+UsersList.propTypes = {
+  users: PropTypes.array.isRequired,
+  onLoadMore: PropTypes.func.isRequired,
+};
 
 export default UsersList;

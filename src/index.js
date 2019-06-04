@@ -14,11 +14,6 @@ const typeDefs = gql`
   extend type User {
     ethBalance: Number!
   }
-
-  type MoreUser {
-    users: [User]
-    cursor: String
-  }
 `;
 
 const client = new ApolloClient({
@@ -26,7 +21,7 @@ const client = new ApolloClient({
   typeDefs,
   resolvers: {
     User: {
-      ethBalance: () => Math.random() * 100, // In case we want some fictional values
+      ethBalance: () => Math.random() * 100,
     },
   },
 });

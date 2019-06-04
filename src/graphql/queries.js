@@ -2,12 +2,18 @@ import gql from 'graphql-tag';
 
 export const GET_USERS = gql`
   {
-    users(last: 30) {
+    users(first: 15) {
       id
-      exchangeBalances {
-        ethDeposited
-        ethWithdrawn
-      }
+      ethBalance @client
+    }
+  }
+`;
+
+export const GET_USERS_AFTER = gql`
+  query GetUsersAfter($skip: Int!) {
+    users(first: 5, skip: $skip) {
+      id
+      ethBalance @client
     }
   }
 `;

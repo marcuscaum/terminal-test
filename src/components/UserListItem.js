@@ -10,7 +10,7 @@ import UserTransactionsList from './UserTransactionsList';
 import ExpansionPanelDetails from './styles/UserListItem.styled';
 
 
-const UsersListItem = ({ id, ethBalance }) => {
+const UsersListItem = ({ user: { id, ethBalance } }) => {
   const [expandedPanel, setExpandedPanel] = useState(false);
 
   return (
@@ -47,8 +47,10 @@ const UsersListItem = ({ id, ethBalance }) => {
 };
 
 UsersListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  ethBalance: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    ethBalance: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default UsersListItem;

@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import UsersList from '../components/UserList';
-import { GET_USERS } from '../graphql/queries';
+import { GET_USERS, GET_USERS_AFTER } from '../graphql/queries';
 
 import { Content, Container } from './styles/App.styled';
 
@@ -18,7 +18,7 @@ const App = () => (
         </Typography>
         <Query query={GET_USERS}>
           {({
-            data: { users }, loading, error,
+            data: { users }, loading, error, fetchMore,
           }) => {
             if (loading) return <CircularProgress />;
             if (error) return `Error! ${error.message}`;
@@ -26,6 +26,19 @@ const App = () => (
             return (
               <UsersList
                 users={users}
+                onLoadMore={() => fetchMore({
+                  query: GET_USERS_AFTER,
+                  variables: { skip: users.length },
+                  updateQuery: (previousResult, { fetchMoreResult }) => {
+                    const previousUsers = previousResult.users;
+                    const newUsers = fetchMoreResult.users;
+
+                    return {
+                      users: [...previousUsers, ...newUsers],
+                    };
+                  },
+                })
+                }
               />
             );
           }}
