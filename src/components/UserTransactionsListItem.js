@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import { ListItem, Divider } from '@material-ui/core';
 
 import ListItemText from './styles/UserTransactionsListItem.styled';
 

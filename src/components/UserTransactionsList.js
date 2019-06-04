@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
+import { CircularProgress, Typography, List } from '@material-ui/core';
 
 import UserTransactionsListItem from './UserTransactionsListItem';
 import { GET_USER_TRANSACTIONS } from '../graphql/queries';
@@ -41,4 +39,4 @@ UserTransactionsList.propTypes = {
   user: PropTypes.string.isRequired,
 };
 
-export default UserTransactionsList;
+export default React.memo(UserTransactionsList);
