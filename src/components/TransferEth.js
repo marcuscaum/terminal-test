@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
   Typography,
   Grid,
   Divider,
+  Snackbar,
 } from '@material-ui/core';
 
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
 
 import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
 import Drawer from './styles/TransferEth.styled';
 import { TRANSFER_ETH_BALANCE } from '../graphql/mutations';
 
@@ -25,16 +25,29 @@ export const TRANSFER_ETH_PROPTYPES = {
 const TransferEth = ({
   fromId, toId, setOnTransferEth, onTransferEth,
 }) => {
+  const [successTransfer, setSuccessTransfer] = useState(false);
+
   if (!onTransferEth) {
     return (
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => setOnTransferEth(!onTransferEth)}
-      >
-        Transfer eth
-        <SwapHoriz />
-      </Button>
+      <>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setOnTransferEth(!onTransferEth)}
+        >
+          Transfer eth
+          <SwapHoriz />
+        </Button>
+        {successTransfer && (
+          <Snackbar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            open={successTransfer}
+            onClose={() => setSuccessTransfer(false)}
+            message="The transfer was a success!"
+            autoHideDuration={4000}
+          />
+        )}
+      </>
     );
   }
 
@@ -52,20 +65,22 @@ const TransferEth = ({
       </Typography>
       <Grid container spacing={2}>
         <Grid item>
-          <Mutation
-            mutation={TRANSFER_ETH_BALANCE}
-          >
+          <Mutation mutation={TRANSFER_ETH_BALANCE}>
             {transferEthBalance => (
               <Button
                 variant="contained"
                 color="primary"
                 disabled={!fromId || !toId}
-                onClick={() => transferEthBalance({
-                  variables: {
-                    toId,
-                    fromId,
-                  },
-                })}
+                onClick={async () => {
+                  await transferEthBalance({
+                    variables: {
+                      toId,
+                      fromId,
+                    },
+                  });
+                  setOnTransferEth(false);
+                  setSuccessTransfer(true);
+                }}
               >
                   Transfer
                 <SwapHoriz />

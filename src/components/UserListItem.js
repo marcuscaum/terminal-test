@@ -13,7 +13,7 @@ import ExpansionPanelDetails from './styles/UserListItem.styled';
 import { TRANSFER_ETH_PROPTYPES } from './TransferEth';
 
 const UsersListItem = ({
-  user: { id, ethBalance },
+  user: { id, ethBalance, txs },
   onTransferEth,
   setToId,
   setFromId,
@@ -44,7 +44,14 @@ const UsersListItem = ({
       >
         <Grid container justify="space-between">
           <Grid item>
-            {onTransferEth && <Checkbox checked={fromId === id || toId === id} color="primary" onChange={(e, checked) => handleTransfer(id, checked)} />}
+            {onTransferEth && (
+              <Checkbox
+                checked={fromId === id || toId === id}
+                color="primary"
+                onChange={(e, checked) => handleTransfer(id, checked)}
+                style={{ padding: 0, paddingRight: '9px' }}
+              />
+            )}
             <Typography variant="caption">{id}</Typography>
           </Grid>
           <Grid item>
@@ -58,7 +65,7 @@ const UsersListItem = ({
       <ExpansionPanelDetails>
         <Typography variant="overline">List of transactions</Typography>
         {expandedPanel && !onTransferEth
-          && <UserTransactionsList user={id} />
+          && <UserTransactionsList transactions={txs} />
         }
       </ExpansionPanelDetails>
     </ExpansionPanel>

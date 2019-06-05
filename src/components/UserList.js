@@ -16,19 +16,17 @@ const UsersList = ({
   toId,
 }) => (
   <>
-    {
-        users.map(user => (
-          <UsersListItem
-            key={user.id}
-            user={user}
-            onTransferEth={onTransferEth}
-            setToId={setToId}
-            setFromId={setFromId}
-            fromId={fromId}
-            toId={toId}
-          />
-        ))
-      }
+    {users.map(user => (
+      <UsersListItem
+        key={user.id}
+        user={user}
+        onTransferEth={onTransferEth}
+        setToId={setToId}
+        setFromId={setFromId}
+        fromId={fromId}
+        toId={toId}
+      />
+    ))}
     <Waypoint onEnter={onLoadMore} />
   </>
 );

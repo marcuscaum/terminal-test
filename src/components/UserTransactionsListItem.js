@@ -9,22 +9,13 @@ const UserTransactionsListItem = ({ transaction }) => (
   <>
     <ListItem>
       <ListItemText
-        primary={(
-          <>
-            <strong>{transaction.tokenSymbol}: </strong>
-            {transaction.tokenAmount}
-          </>
-        )}
-        secondary={`TX: ${transaction.tx}`}
+        primary={<strong>USER</strong>}
+        secondary={transaction.user}
       />
       <ListItemText
         right="true"
-        primary={(
-          <>
-            {transaction.ethAmount}
-            <strong> ETH</strong>
-          </>
-        )}
+        primary={<strong>ETH AMOUNT</strong>}
+        secondary={transaction.ethAmount}
       />
     </ListItem>
     <Divider component="li" />
@@ -33,9 +24,8 @@ const UserTransactionsListItem = ({ transaction }) => (
 
 UserTransactionsListItem.propTypes = {
   transaction: PropTypes.shape({
-    ethAmount: PropTypes.string,
-    tx: PropTypes.string,
-    id: PropTypes.string,
+    ethAmount: PropTypes.number,
+    user: PropTypes.string,
   }).isRequired,
 };
 

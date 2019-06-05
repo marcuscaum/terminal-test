@@ -31,7 +31,7 @@ const App = () => {
             />
           </Grid>
         </Grid>
-        <Query query={GET_USERS}>
+        <Query query={GET_USERS} fetchPolicy="cache-first">
           {({
             data: { users }, loading, error, fetchMore,
           }) => {
