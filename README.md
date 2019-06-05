@@ -1,3 +1,3 @@
 ### Live test
 
-https://terminal-test-ofetidzyfk.now.sh/
+https://build-sppbwjceau.now.sh/
